@@ -1,6 +1,6 @@
 {
-  "title": "",
-  "description": "",
+  "title": "Blog by Sebastian Kropp",
+  "description": "Enterprise and solution architect with extensive experience in designing architectures, business process management, model based product development, and managing implementations.",
   "url": "",
   "rss": "/rss.xml",
   "maxItems": 6,
@@ -9,8 +9,8 @@
   ],
   "styleSheet": "style.css",
   "authors": {
-    "Matt Levy": {
-      "name": "Matt Levy",
+    "Sebastian Kropp": {
+      "name": "Sebastian Kropp",
       "bio": "Practicing the art of front-end development"
     }
   },

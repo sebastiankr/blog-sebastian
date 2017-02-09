@@ -1,26 +1,40 @@
-{{> header}}
-
-{{> navigation}}
+{{> header}} {{> navigation}}
 
 <div class="container">
 
     {{#post}}
-        <div class="row">
-            <article>
-                <h1>{{title}}</h1>
-                <p class="post-meta">
-                    {{date format="MMMM Do YYYY"}}
-                    by <span>{{author.name}}</span>
-                    {{#if tags}} on {{{tags}}}{{/if}}
-                </p>
-                {{{body}}}
-            </article>
-            <aside>
-                {{> sidebar}}
-            </aside>
+    <div class='blog-single'>
+        <div class='text'>
+            <h1>{{title}}</h1>
+            <div dangerouslySetInnerHTML={ { __html: post.body} } />
+            <div class='date-published'>
+                <em>Published { moment(post.date).format('D MMM YYYY') }</em>
+            </div>
         </div>
+        <div className='footer'>
+            
+            <hr></hr>
+            <p>
+                { config.siteDescr }
+                <a href={ config.siteLinkedinUrl }>
+                    <br></br> <strong>{ config.siteAuthor }</strong> on LinkedIn</a>
+            </p>
+        </div>
+    </div>
+
+    {{!--<div class="row">
+        <article>
+            <h1>{{title}}</h1>
+            <p class="post-meta">
+                {{date format="MMMM Do YYYY"}} by <span>{{author.name}}</span> {{#if tags}} on {{{tags}}}{{/if}}
+            </p>
+            {{{body}}}
+        </article>
+        <aside>
+            {{> sidebar}}
+        </aside>
+    </div>--}}
     {{/post}}
 
 </div>
-
 {{> footer}}
