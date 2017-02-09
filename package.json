@@ -1,7 +1,7 @@
 {
   "name": "blog-sebastian",
   "version": "0.1.0",
-  "description": Simple personal blog",
+  "description": "Simple personal blog",
   "main": "gulpfile.js",
   "author": "",
   "license": "ISC",
