@@ -11,7 +11,8 @@
   "authors": {
     "Sebastian Kropp": {
       "name": "Sebastian Kropp",
-      "bio": "Practicing the art of front-end development"
+      "bio": "Practicing the art of front-end development",
+      "linkedin":"https://www.linkedin.com/in/sebastiankropp/"
     }
   },
   "imageCompression": true

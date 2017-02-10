@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="interventionApp">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Intervention Optimization</title>
+
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+    <style>
+        body {
+            padding: 2em;
+        }
+        pre {
+            border: 1px solid #999;
+            padding: 1em;
+            background-color: #FFE;
+        }
+        li {
+            list-style-position: inside;
+        }
+        .sliderExample {
+            width: 640px;
+            padding: 2em;
+            background-color: #f5f5f5;
+            border: 1px solid #f0f0f0;
+            margin: 2em;
+        }
+        .sliderExample > div {
+            margin: 1em 0;
+        }
+        .vertical-container {
+            width: 15%;
+            display: inline-block;
+        }
+        #swatch {
+            width: 100px;
+            height: 100px;
+            border: 1px solid black;
+        }
+        #red .ui-slider-range {
+            background: #ef2929;
+        }
+        #red .ui-slider-handle {
+            border-color: #ef2929;
+        }
+        #green .ui-slider-range {
+            background: #8ae234;
+        }
+        #green .ui-slider-handle {
+            border-color: #8ae234;
+        }
+        #blue .ui-slider-range {
+            background: #729fcf;
+        }
+        #blue .ui-slider-handle {
+            border-color: #729fcf;
+        }
+                .legend {
+            font: 9px sans-serif;
+        }
+        .axis {
+            font: 9px sans-serif;
+        }
+        .axis path,
+        .axis line {
+            
+            fill: none;
+            stroke: #000;
+            shape-rendering: crispEdges;
+        }
+        .bar {
+            fill: steelblue;
+        }
+        .x.axis path {
+            display: none;
+        }
+    </style>
+
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/ui/1.11.2/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular.js"></script>
+<!--    <script type="text/javascript" src="js/slider.js"></script>-->
+<!--    <script type="text/javascript" src="js/knapsack.js"></script>-->
+    <script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+<!--    <script type="text/javascript" src="js/stackedBarChart.js"></script>-->
+    <script type="text/javascript" src="js/app2.min.js"></script>
+</head>
+
+<body ng-controller="interventionCtrl">
+    
+    <div class="container">
+        <div class="page-header">
+            <h1>Intervention Optimization</h1>
+            <p class="lead">Automatically creating an optimal intervention plan for a given budget</p>
+        </div>
+        <h3>Healthplan: Super Optum Plus II </h3>
+      
+        <div class="row">
+            <div class="col-md-4">
+                <div class="well well-sm"><strong>Budget:
+                <input type="text" size="4" type="number" ng-model="budget" /></strong>
+                    <br>
+                    <br>
+                    <div ui-slider min="500" max="50000" step="500" ng-model="budget" ng-change="change()"></div>
+                    <br>Remaining Budget: ${{remainingBudget | number:2}}
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="well well-sm"><strong>{{members.length}} members and {{numberOfGaps}} identified gaps</strong>
+                    <br>
+                    <strong>Realized Value: ${{realizedValue | number:2}}</strong>
+                    <br>(Value is representing monetized quality measure improvements and capitated risk adjustments)
+                    <br><strong>Realized Costs: ${{realizedCosts | number:2}}</strong>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="well well-sm"><strong>Potential Value: ${{potentialValue | number:2}}</strong>
+                    <br>(Benefit achievable if every intervention succeeds)
+                    <br><strong>Expected Value: ${{expectedValue | number:2}}</strong>
+                    <br>(Probable achievable benefit)
+                </div>
+            </div>
+        </div>
+
+        <h4>Intervention Type Utilization</h4>
+        <!-- Intervention Type Utilization -->
+        <div class="row">
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">IHA</div>
+                    <div class="panel-body">
+                        <p id="iha">
+                        <div ui-slider min="0.00" max="2.00" step="0.01" use-decimals ng-model="ihaWeight" ng-change="change()"></div>
+                        <br>IHA Weight:
+                        <input type="text" size="1" type="number" ng-model="ihaWeight" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">MEOT</div>
+                    <div class="panel-body">
+                        <p id="meot">
+                        <div ui-slider min="0.00" max="2.00" step="0.01" use-decimals ng-model="meotWeight" ng-change="change()"></div>
+                        <br>Meot Weight:
+                        <input type="text" size="1" type="number" ng-model="meotWeight" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">MEOM</div>
+                    <div class="panel-body">
+                        <p id="meom">
+                        <div ui-slider min="0.00" max="2.00" step="0.01" use-decimals ng-model="meomWeight" ng-change="change()"></div>
+                        <br>Meom Weight:
+                        <input type="text" size="1" type="number" ng-model="meomWeight" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="panel panel-default">
+
+            <!-- Interventions -->
+            <div class="panel-heading">{{interventions.length}} Interventions</div>
+            <table class="table table-striped table-condensed table-hover">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Member</th>
+                        <th>Type</th>
+                        <th>Gaps</th>
+                        <th>Start</th>
+                        <th>End</th>
+                        <th>B</th>
+                        <th>W</th>
+                        <th>Value</th>
+                        <th>Simulate Intervention Event</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="i in interventions" class="{{i.State}}">
+                        <td>{{i.r | number:2}}</td>
+                        <td>{{i.Member.Name}}</td>
+                        <td>{{i.Name}}</td>
+                        <td><span ng-repeat="g in i.interventionGaps">{{g.Name}} </span>
+                        </td>
+                        <td>{{i.Start | date}}</td>
+                        <td>{{i.End | date}}</td>
+                        <td>{{i.b | number:2}}</td>
+                        <td>{{i.w}}</td>
+                        <td>{{i.Value| currency }}</td>
+                        <td>
+                            <button ng-click="simulateSuccessful(i);" type="button" class="btn btn-default btn-xs">Successful</button>
+                            <button ng-click="simulateUnsuccessful(i);" type="button" class="btn btn-default btn-xs">Unsuccessful</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <hr>
+        <p class="text-warning">Copyright Sebastian Kropp</p>
+    </div>
+
+
+</body>
+
+</html>

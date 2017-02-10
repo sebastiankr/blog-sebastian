@@ -1,28 +1,32 @@
-{{> header}} {{> navigation}}
+{{> header}}
 
 <div class="container">
-
     {{#post}}
+    <div>
+        <a class='gohome' href="/"> All Articles</a>
+    </div>
     <div class='blog-single'>
         <div class='text'>
             <h1>{{title}}</h1>
-            <div dangerouslySetInnerHTML={ { __html: post.body} } />
-            <div class='date-published'>
-                <em>Published { moment(post.date).format('D MMM YYYY') }</em>
+            <div>{{{body}}}</div>
+            {{#if date}}
+            <div class="date-published">
+                <em>Published <time dateTime={{date format="MMMM D, YYYY" }}>{{date format="MMMM Do YYYY"}}</time></em>
             </div>
+            {{/if}}
         </div>
-        <div className='footer'>
-            
+        <div class='footer'>
             <hr></hr>
             <p>
-                { config.siteDescr }
-                <a href={ config.siteLinkedinUrl }>
-                    <br></br> <strong>{ config.siteAuthor }</strong> on LinkedIn</a>
+                {{site.description}}
+                <a href="{{author.linkedin}}">
+                    <br></br> <strong>{{author.name}}</strong> on LinkedIn</a>
             </p>
         </div>
     </div>
 
-    {{!--<div class="row">
+    {{!--
+    <div class="row">
         <article>
             <h1>{{title}}</h1>
             <p class="post-meta">
@@ -33,8 +37,7 @@
         <aside>
             {{> sidebar}}
         </aside>
-    </div>--}}
-    {{/post}}
+    </div>--}} {{/post}}
 
 </div>
 {{> footer}}

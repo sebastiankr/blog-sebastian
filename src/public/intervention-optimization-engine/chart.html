@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Intervention Optimization</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="https://code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <style>
+        .legend {
+            font: 9px sans-serif;
+        }
+        .axis {
+            font: 9px sans-serif;
+        }
+        .axis path,
+        .axis line {
+            
+            fill: none;
+            stroke: #000;
+            shape-rendering: crispEdges;
+        }
+        .bar {
+            fill: steelblue;
+        }
+        .x.axis path {
+            display: none;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="page-header">
+            <h1>Intervention Optimization</h1>
+            <p class="lead">Automatically creating an optimal intervention plan for a given budget</p>
+        </div>
+        <div slider config="sliderConfig" model="price" class="cdbl-slider"></div>
+
+        <h3>Healthplan: Super Optum Plus II</h3>
+        <div class="row">
+            <div class="col-md-4"><strong>Realized Value: $876</strong>
+                <br><strong>Realized Costs: $34</strong>
+            </div>
+            <div class="col-md-4"><strong>Remaining max. Value: $460.376</strong>
+                <br><strong>Remaining avg. Value: $460.376</strong>
+            </div>
+            <div class="col-md-4"><strong>Budget: <input type="text" /> </strong>
+                <br><strong>Remaining Budget: $460.376</strong>
+            </div>
+        </div>
+
+        <!-- Intervention Type Utilization -->
+        <div class="row">
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">IHA</div>
+                    <div class="panel-body">
+                        <p id="iha">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">MEOT</div>
+                    <div class="panel-body">
+                        <p id="meot">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">MEOM</div>
+                    <div class="panel-body">
+                        <p id="meom">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular.js"></script>
+        <script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+        <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore.js"></script>
+
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script type="text/javascript" src="https://code.jquery.com/ui/1.11.2/jquery-ui.min.js"></script>
+
+        <script type="text/javascript" src="js/stackedBarChart.js"></script>
+        <hr>
+        <p class="text-warning">Copyright Sebastian Kropp</p>
+    </div>
+
+    <script>
+                var data = [
+        {'State': "JAN", 'planned': "43", 'successful': "0", 'unsucessful': "56"},
+        {'State': "FEB", 'planned': "23", 'successful': "56", 'unsucessful': "56"},
+        {'State': "MAR", 'planned': "23", 'successful': "56", 'unsucessful': "52"},
+        {'State': "APR", 'planned': "13", 'successful': "56", 'unsucessful': "41"},
+        {'State': "MAY", 'planned': "23", 'successful': "46", 'unsucessful': "36"},
+        {'State': "JUN", 'planned': "44", 'successful': "56", 'unsucessful': "18"},
+        {'State': "JUL", 'planned': "23", 'successful': "26", 'unsucessful': "56"},
+        {'State': "AUG", 'planned': "73", 'successful': "8", 'unsucessful': "1"},
+        {'State': "SEP", 'planned': "53", 'successful': "46", 'unsucessful': "36"},
+        {'State': "OCT", 'planned': "33", 'successful': "26", 'unsucessful': "19"},
+        {'State': "NOV", 'planned': "83", 'successful': "1", 'unsucessful': "6"},        
+        {'State': "DEC", 'planned': "23", 'successful': "26", 'unsucessful': "16"}];
+        var data1 = [
+        {'State': "JAN", 'planned': "43", 'successful': "0", 'unsucessful': "5"},
+        {'State': "FEB", 'planned': "38", 'successful': "16", 'unsucessful': "7"},
+        {'State': "MAR", 'planned': "27", 'successful': "6", 'unsucessful': "2"},
+        {'State': "APR", 'planned': "15", 'successful': "16", 'unsucessful': "41"},
+        {'State': "MAY", 'planned': "23", 'successful': "16", 'unsucessful': "16"},
+        {'State': "JUN", 'planned': "33", 'successful': "21", 'unsucessful': "18"},
+        {'State': "JUL", 'planned': "43", 'successful': "26", 'unsucessful': "16"},
+        {'State': "AUG", 'planned': "23", 'successful': "16", 'unsucessful': "26"},
+        {'State': "SEP", 'planned': "29", 'successful': "38", 'unsucessful': "2"},
+        {'State': "OCT", 'planned': "33", 'successful': "16", 'unsucessful': "19"},
+        {'State': "NOV", 'planned': "43", 'successful': "31", 'unsucessful': "8"},        
+        {'State': "DEC", 'planned': "36", 'successful': "26", 'unsucessful': "16"}];
+        
+        var data2 = [
+        {'State': "JAN", 'planned': "43", 'successful': "0", 'unsucessful': "6"},
+        {'State': "FEB", 'planned': "53", 'successful': "16", 'unsucessful': "6"},
+        {'State': "MAR", 'planned': "23", 'successful': "26", 'unsucessful': "2"},
+        {'State': "APR", 'planned': "13", 'successful': "23", 'unsucessful': "1"},
+        {'State': "MAY", 'planned': "73", 'successful': "16", 'unsucessful': "6"},
+        {'State': "JUN", 'planned': "28", 'successful': "53", 'unsucessful': "18"},
+        {'State': "JUL", 'planned': "23", 'successful': "26", 'unsucessful': "5"},
+        {'State': "AUG", 'planned': "23", 'successful': "16", 'unsucessful': "7"},
+        {'State': "SEP", 'planned': "22", 'successful': "6", 'unsucessful': "6"},
+        {'State': "OCT", 'planned': "33", 'successful': "26", 'unsucessful': "19"},
+        {'State': "NOV", 'planned': "53", 'successful': "7", 'unsucessful': "2"},        
+        {'State': "DEC", 'planned': "13", 'successful': "26", 'unsucessful': "16"}];
+                
+
+        stackedBarChart("#iha", data, 140);
+        stackedBarChart("#meot", data1,140);
+        stackedBarChart("#meom", data2,140);
+
+    </script>
+</body>
+
+</html>
+

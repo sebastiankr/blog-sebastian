@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="sliderDemoApp">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>AngularUI - Slider demo</title>
+
+    <link href="css/bootstrap.css" rel="stylesheet">
+  	<link rel="stylesheet" href="https://code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+	<style>
+		body {
+			padding: 2em;
+		}
+		pre {
+			border: 1px solid #999;
+			padding: 1em;
+			background-color: #FFE;
+		}
+		li {
+			list-style-position: inside;
+		}
+		.sliderExample {
+			width: 640px;
+			padding: 2em;
+			background-color: #f5f5f5;
+			border: 1px solid #f0f0f0;
+			margin: 2em;
+		}
+		.sliderExample > div {
+			margin: 1em 0;
+		}
+		.vertical-container {
+			width: 15%;
+			display: inline-block;
+		}
+		#swatch {
+			width: 100px;
+			height: 100px;
+			border: 1px solid black;
+		}
+		#red .ui-slider-range { background: #ef2929; }
+		#red .ui-slider-handle { border-color: #ef2929; }
+		#green .ui-slider-range { background: #8ae234; }
+		#green .ui-slider-handle { border-color: #8ae234; }
+		#blue .ui-slider-range { background: #729fcf; }
+		#blue .ui-slider-handle { border-color: #729fcf; }
+	</style>
+    
+        <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore.js"></script>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+  	<script type="text/javascript" src="https://code.jquery.com/ui/1.11.2/jquery-ui.min.js"></script>
+  	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular.js"></script>	
+	<script type="text/javascript" src="js/slider.js"></script>	
+	<script type="text/javascript" src="js/app2.js"></script>
+</head>
+<body ng-controller="sliderDemoCtrl">
+    
+        <div class="container">
+
+        <div class="page-header">
+            <h1>Intervention Optimization</h1>
+            <p class="lead">Automatically creating an optimal intervention plan for a given budget</p>
+        </div>
+        Price: {{price}}
+        <div slider config="sliderConfig" model="price" class="cdbl-slider"></div>
+
+        <h3>Healthplan: Super Optum Plus II</h3>
+        <div class="row">
+            <div class="col-md-4"><strong>Realized Value: $876</strong>
+                <br><strong>Realized Costs: $34</strong>
+            </div>
+            <div class="col-md-4"><strong>Remaining max. Value: $460.376</strong>
+                <br><strong>Remaining avg. Value: $460.376</strong>
+            </div>
+            <div class="col-md-4"><strong>Budget: <input type="text" /> </strong>
+                <br><strong>Remaining Budget: $460.376</strong>
+            </div>
+        </div>
+
+        <!-- Intervention Type Utilization -->
+        <div class="row">
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">IHA</div>
+                    <div class="panel-body">
+                        <div ui-slider min="0" max="200" ng-model="ihaWeight"></div>
+                        
+                        <input type="text" ng-model="ihaWeight" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">MEOT</div>
+                    <div class="panel-body">
+                        Panel content
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">MEOM</div>
+                    <div class="panel-body">
+                        Panel content
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="panel panel-default">
+
+            <!-- Interventions -->
+            <div class="panel-heading">Interventions</div>
+            <table class="table table-striped table-condensed table-hover">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Member</th>
+                        <th>Type</th>
+                        <th>Gaps</th>
+                        <th>Start</th>
+                        <th>End</th>
+                        <th>B</th>
+                        <th>W</th>
+                        <th>Value</th>
+                        <th>Simulate</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="i in interventions" class="{{i.State}}">
+                        <td>{{i.r | number:2}}</td>
+                        <td>{{i.Member}}</td>
+                        <td>{{i.Name}}</td>
+                        <td><span ng-repeat="g in i.interventionGaps">{{g.Name}} </span>
+                        </td>
+                        <td>{{i.Start | date}}</td>
+                        <td>{{i.End | date}}</td>
+                        <td>{{i.b | number:2}}</td>
+                        <td>{{i.w}}</td>
+                        <td>{{i.Value| currency }}</td>
+                        <td>
+                            <button ng-click="simulateInProgress(i);" type="button" class="btn btn-default btn-xs">In Progress</button>
+                            <button ng-click="simulateSuccessful(i);" type="button" class="btn btn-default btn-xs">Successful</button>
+                            <button ng-click="simulateUnsuccessful(i);" type="button" class="btn btn-default btn-xs">Unsuccessful</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+            
+
+	<h1>AngularUI Slider demo</h1>
+	<ol>
+	<li>
+	<div class="sliderExample"><a name="ex1"></a>
+		<strong>Step slider with event listeners (see console log)</strong>
+		<div ui-slider min="0" max="200" ng-model="demoVals.sliderExample1"></div>
+		<input type="text" ng-model="demoVals.sliderExample1" />	
+	</div>
+	</li>
+	<li>
+	<div class="sliderExample"><a name="ex2"></a>
+		<div>
+			<strong>Slider - vertical, step value 5</strong>
+		</div>
+		<div class="vertical-container">
+			<div ui-slider="{orientation: 'vertical', range: 'min'}"  min="0" max="25" step="5" ng-model="demoVals.sliderExample2"></div>
+		</div>
+		<div class="vertical-container">
+			<div ui-slider="{orientation: 'vertical', range: 'max'}"  min="0" max="25" step="5" ng-model="demoVals.sliderExample2"></div>
+		</div>
+		<div class="vertical-container">
+			<div ui-slider="{orientation: 'vertical', range: 'min'}"  min="0" max="25" step="5" ng-model="demoVals.sliderExample2"></div>
+		</div>
+		<div class="vertical-container">
+			<div ui-slider="{orientation: 'vertical', range: 'max'}"  min="0" max="25" step="5" ng-model="demoVals.sliderExample2"></div>
+		</div>
+		<div class="vertical-container">
+			<div ui-slider="{orientation: 'vertical', range: 'min'}"  min="0" max="25" step="5" ng-model="demoVals.sliderExample2"></div>
+		</div>
+		<div>
+			<input type="text" ng-model="demoVals.sliderExample2" />
+		</div>
+	</div>
+	</li>
+	<li>
+	<div class="sliderExample"><a name="ex3"></a>
+		<strong>Slider - start value 14</strong>
+		<div ui-slider min="0" max="20" ng-model="demoVals.sliderExample3"></div>
+		<input type="text" ng-model="demoVals.sliderExample3" />
+	</div>
+	</li>
+	<li>
+	<div class="sliderExample"><a name="ex4"></a>
+		<strong>Dual sliders - start value 14</strong>
+		<div ui-slider min="0" max="20" ng-model="demoVals.sliderExample4"></div>
+		<div ui-slider min="0" max="20" ng-model="demoVals.sliderExample4"></div>
+		<input type="text" ng-model="demoVals.sliderExample4" />
+	</div>
+	</li>
+	<li>
+	<div class="sliderExample"><a name="ex5"></a>
+		<strong>Slider - default min and max</strong>
+		<div ui-slider ng-model="demoVals.sliderExample5"></div>
+		<input type="text" ng-model="demoVals.sliderExample5" />
+	</div>
+	</li>
+	<li>
+	<div class="sliderExample"><a name="ex6"></a>
+		<strong>Slider - range max (instead of min)</strong>
+		<div ui-slider="{range: 'max'}" ng-model="demoVals.sliderExample6"></div>
+		<input type="text" ng-model="demoVals.sliderExample6" />
+	</div>
+	</li>
+	<li>
+	<div class="sliderExample"><a name="ex7"></a>
+		<strong>Slider - range values, step with decimals</strong>
+		<div ui-slider="{range: true}" min="0" max="100" step="0.01" use-decimals ng-model="demoVals.sliderExample7"></div>
+		<input type="text" ng-model="demoVals.sliderExample7" />
+	</div>
+	</li>
+	<li>
+	<div class="sliderExample"><a name="ex8"></a>
+		<strong>Slider - start value 0.34, step with decimals (try increase/decrease with arrow keys)</strong>
+		<div ui-slider min="0.00" max="2.00" step="0.01" use-decimals ng-model="demoVals.sliderExample8"></div>
+		<div ui-slider min="0.00" max="2.00" step="0.01" use-decimals ng-model="demoVals.sliderExample8"></div>
+		<input type="text" ng-model="demoVals.sliderExample8" />
+	</div>
+	</li>
+	<li>
+	<div class="sliderExample"><a name="ex9"></a>
+		<strong>Slider - start value [-0.52, 0.54], step with decimals from min -1.00 to max 1.00 (try increase/decrease with arrow keys)</strong>
+		<div ui-slider="{range: true}" min="-1.00" max="1.00" step="0.01" use-decimals ng-model="demoVals.sliderExample9"></div>
+		<div ui-slider="{range: true}" min="-1.00" max="1.00" step="0.01" use-decimals ng-model="demoVals.sliderExample9"></div>
+		<input type="text" ng-model="demoVals.sliderExample9" />
+	</div>
+	</li>
+	<li>
+	<div class="sliderExample"><a name="ex10"></a>
+		<strong>Slider - start value -0.37, step with decimals from min -1.00 to max 1.00</strong>
+		<div ui-slider min="-1.00" max="1.00" step="0.01" use-decimals ng-model="demoVals.sliderExample10"></div>
+		<div ui-slider min="-1.00" max="1.00" step="0.01" use-decimals ng-model="demoVals.sliderExample10"></div>
+		<input type="text" ng-model="demoVals.sliderExample10" />
+	</div>
+	</li>
+	<li>
+	<div class="sliderExample"><a name="ex11"></a>
+		<strong>Simple <a href="http://jqueryui.com/slider/#colorpicker">Colorpicker</a></strong>
+		<div id="red" ui-slider="colorpicker.options" ng-model="colorpicker.red"></div>
+		Red: <input ng-model="colorpicker.red">
+		<div id="green" ui-slider="colorpicker.options" ng-model="colorpicker.green"></div>
+		Green: <input ng-model="colorpicker.green">
+		<div id="blue" ui-slider="colorpicker.options" ng-model="colorpicker.blue"></div>
+		Blue: <input ng-model="colorpicker.blue">
+		<div id="swatch"></div>
+	</div>
+	</li>
+	<li>
+	<div class="sliderExample"><a name="ex12"></a>
+		<strong>Step slider with event listeners(see console log)</strong>
+		<div ui-slider="slider.options" min="0" max="50" ng-model="demoVals.sliderExample1"></div>
+		<input type="text" ng-model="demoVals.sliderExample1" />
+
+		<p>This slider has event listeners attached to it, assigned by defining the listeners in the option passed to the slider. For example in controller:</p>
+		
+<pre>
+$scope.slider = {
+	'options': {
+		start: function (event, ui) { $log.info('Slider start'); },
+    	stop: function (event, ui) { $log.info('Slider stop'); }
+</pre>
+
+		<p>And in markup</p>
+		
+<pre>
+&lt;div ui-slider="slider.options" 
+     min="0" 
+     max="50" 
+     ng-model="demoVals.sliderExample1"&gt;&lt;/div&gt;
+		</pre>
+		
+		<p>Options may also be set in in service uiSliderConfig, ie:</p>
+<pre>
+app.factory('uiSliderConfig', function ($log) {
+	return {
+		start: function (event, ui) { $log.info('Slider start'); },
+		stop: function (event, ui) { $log.info('Slider stop'); }
+	};
+});
+</pre>	
+	</div>	
+	</li>
+	</ol>
+
+</body>
+</html>

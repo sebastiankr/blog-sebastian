@@ -1,23 +1,14 @@
  {{#each posts}}
 <div class='blog-post' key="{{title}}">
     {{#if date}}
-    <time dateTime={{date format="MMMM D, YYYY"}}>
+    <time dateTime={{date format="MMMM D, YYYY" }}>
         {{date format="MMMM Do YYYY"}}
     </time>
     {{/if}}
     <span style="padding: 5px;"></span>
-    <span class='blog-category'>{{{categories }}}</span>
+    <span class='blog-category'>{{{categories}}}</span>
     <h2><a href="{{url}}" style="border-bottom:none;">{{title}}</a></h2>
     <p>{{{articleUpToFold}}}</p>
     <a href="{{url}}">Read</a>
-</div>
-<div class="post">
-    <h2><a href="{{url}}">{{title}}</a></h2>
-    {{#if date}}
-    <p class="post-meta">
-        {{date format="MMMM Do YYYY"}}
-    </p>
-    {{/if}}
-    <p>{{{excerpt characters=230}}}...</p>
 </div>
 {{/each}}
