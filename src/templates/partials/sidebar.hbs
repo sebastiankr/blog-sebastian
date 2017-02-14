@@ -1,32 +1,53 @@
-{{#if allDates}}
-    <div class="sidebar">
-        <h4>Archives</h4>
-        <ul>
-            {{#each allDates}}
-                <li>
-                    <a href="{{dateLink}}">{{dateStr}}</a>
-                </li>
+<div class='sidebar'>
+    <div class='sidebar-inner'>
+        <div class='blog-details'>
+            <header>
+                <img src="/images/photo.jpg" width="75" alt="profile picture"> 
+                {{#each authors}}
+                <h1>
+                    <a style="text-decoration:none;border-bottom:none;color:inherit;" href="/">{{name}}</a>
+                </h1>
+                {{/each}}
+                <p>
+                    {{ site.description }}
+                </p>
+
+            </header>
+        </div>
+        <div class='blog-options'>
+            {{> navigation}} {{#each authors}}
+            <div class="blog-links">
+                <ul>
+                    {{#if linkedin}}
+                    <li>
+                        <a href={{linkedin}}>
+                            <i class="fa fa-linkedin-square" />
+                        </a>
+                    </li>
+                    {{/if}}
+                    {{#if github}}
+                    <li>
+                        <a href={{github}}>
+                            <i class="fa fa-github" />
+                        </a>
+                    </li>
+                    {{/if}}
+                </ul>
+                <ul>
+                    {{#if email}}
+                    <li>
+                        <a href={{email}}>
+                            <i class="fa fa-envelope-o" />
+                        </a>
+                    </li>
+                    {{/if}}
+                </ul>
+            </div>
             {{/each}}
-        </ul>
+
+            <footer>
+                <p class='copyright'>&copy; All rights reserved.</p>
+            </footer>
+        </div>
     </div>
-{{/if}}
-{{#if allTags}}
-    <div class="sidebar">
-        <h4>Tags</h4>
-        <ul>
-            {{#each allTags}}
-                <li>
-                    <a href="{{tagLink}}">{{tag}}</a>
-                </li>
-            {{/each}}
-        </ul>
-    </div>
-{{/if}}
-<div class="sidebar">
-    <h4>Elsewhere</h4>
-    <ol>
-        <li><a href="#">GitHub</a></li>
-        <li><a href="#">Twitter</a></li>
-        <li><a href="#">Facebook</a></li>
-    </ol>
 </div>

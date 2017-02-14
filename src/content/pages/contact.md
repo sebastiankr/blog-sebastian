@@ -1,6 +1,6 @@
 ---
-slug: about
-title: About ne
+slug: contact
+title: Contact me
 template: page.hbs
 ---
 

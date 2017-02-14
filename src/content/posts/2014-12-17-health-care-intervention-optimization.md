@@ -11,7 +11,6 @@ The health care system in the US is changing rapidly. The Affordable Care Act in
 
 ## Enterprise Architecture Model
 Enterprise Architecture (EA) can help to accelerate meaningful change in health organizations. In this example I am highlighting parts of an EA model focused on intervention optimization and planning. This high level business model shows only parts of the core processes of a health plan/insurer and does not highlight underlying and cross cutting functionalities like Security and Data Analytics. I used this model to developed the *Intervention Optimization Engine*, which can be tried out <a href="/public/intervention-optimization-engine/" target="_blank">here</a>.
-<!--fold-->
 
 **Intervention Optimization** is down-stream of processes which are identifying gaps. Gap identification requires ever more sophisticated data analytic and predictive analytic capabilities. 
 
@@ -19,6 +18,7 @@ Enterprise Architecture (EA) can help to accelerate meaningful change in health 
 	<img style="" src="/images/healthcare/gap-intervention-process.png" alt="Gap Intervention Process">
 	<figcaption>Gap Intervention Process</figcaption>
 </figure>
+<!--fold-->
 
 **Data Integration**: Involves processes around health care data transformation, inbound and outbound data, internal interfaces, and data quality. Examples are EHR integration, HHS/CMS reporting, intake of administrative and claims data, HIPAA 5010 ([ASC X12](http://x12.org/), 837 Claims), [HL7](https://en.wikipedia.org/wiki/Health_Level_7), and others.
 
