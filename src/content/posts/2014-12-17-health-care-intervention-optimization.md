@@ -3,7 +3,7 @@ slug: 2014-12-17-health-care-intervention-optimization
 title: "Health Care Intervention Optimization"
 template: post.hbs
 date: 2015-02-14
-categories: ["Test Blog Post", "sample"]
+categories: ["Intervention Optimization", "Population Health Management"]
 author: Sebastian Kropp
 ---
 
@@ -15,9 +15,10 @@ Enterprise Architecture (EA) can help to accelerate meaningful change in health 
 **Intervention Optimization** is down-stream of processes which are identifying gaps. Gap identification requires ever more sophisticated data analytic and predictive analytic capabilities. 
 
 <figure class="floatCenter">
-	<img style="" src="/images/healthcare/gap-intervention-process.png" alt="Gap Intervention Process">
+	<img src="/images/healthcare/gap-intervention-process.png" alt="Gap Intervention Process">
 	<figcaption>Gap Intervention Process</figcaption>
 </figure>
+
 <!--fold-->
 
 **Data Integration**: Involves processes around health care data transformation, inbound and outbound data, internal interfaces, and data quality. Examples are EHR integration, HHS/CMS reporting, intake of administrative and claims data, HIPAA 5010 ([ASC X12](http://x12.org/), 837 Claims), [HL7](https://en.wikipedia.org/wiki/Health_Level_7), and others.

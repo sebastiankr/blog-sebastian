@@ -1,12 +1,37 @@
 ---
 slug: about
-title: About ne
+title: About me
 template: page.hbs
 ---
 
-<!-- this is in here -->
-Sweet sweet roll sweet roll dragée soufflé tootsie roll ice cream toffee. Jelly-o cake fruitcake tart. Bear claw oat cake cookie ice cream gummies.
-Gummies gummies fruitcake chupa chups sweet roll cake oat cake muffin cake. Pastry bear claw jelly beans marzipan cake jujubes jelly-o pudding. Fruitcake marshmallow dragée carrot cake gummi bears pie.
-
-Apple pie danish tiramisu muffin chocolate tiramisu topping pudding powder. Chocolate cake carrot cake dessert dessert apple pie gingerbread icing. Icing chupa chups muffin cake pastry. Apple pie cake gummi bears gummi bears marshmallow pudding liquorice.
+## Executive Enterprise/Solution Architect
+Analytical and driven enterprise and solution architect with extensive experience in designing architectures, business process management, model based product development, leading teams, and guiding implementations according to business requirements. Extraordinary ability to align strategy, business and technology capabilities to help businesses to successfully transform and outsmart competition. 
+* Finance, Healthcare, Education
+* Object-oriented, Functional Programming
+* Business, Data, Application Architecture
+* Creative and Abstract Thinking
+* Database Design, SQL, NoSQL
+* Product Development and SDLC 
+#### Key Technical Skills 
+* BPM, TOGAF, Six Sigma
+* BPMN, EPC, UML, ArchiMate
+* ARIS, BizzDesign, ERwin 
+* Identity & Access Mgmt.
+* SOA & Microservices
+* Cloud, AWS, Azure
+* Analytics, Data warehousing
+* MS SQL Server, PostgreSQL
+* Linux, Mac, Windows
+* Active Directory, ADFS
+* JS/HTML5, CSS
+* C#, C++, Java, Scala
+* MongoDB, Dynamo DB
+* Continuous Delivery
+* Single Sign On, Security
+* OpenID Connect, JWT
+* Git, TFS ALM, JIRA
+* JavaScript, Node JS
+* Angular, React, Meteor, D3, Polymer
+* Hibernate, Struts, Entity Framework
+* Redis, Hadoop, RabbitMQ
 

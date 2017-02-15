@@ -470,7 +470,8 @@ svg:not(:root) {
   overflow: hidden; }
 
 ul li, ol li {
-  margin-bottom: 0; }
+  margin-bottom: 0;
+  font-size: 16px; }
 
 nav {
   display: block; }
